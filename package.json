@@ -1,0 +1,65 @@
+{
+  "name": "it-tech",
+  "productName": "IT-Tech",
+  "version": "1.7.0",
+  "description": "IT-Tech \u2014 Computer Class Management (offline)",
+  "main": "main.js",
+  "author": "MOIZ",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis portable --x64",
+    "gen:config": "node scripts/gen-config.js",
+    "build:pages": "node scripts/gen-config.js && node build-pages.js",
+    "prebuild": "node scripts/gen-config.js",
+    "build": "node scripts/gen-config.js && electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "44.3.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "com.ittech.classmanager",
+    "productName": "IT-Tech",
+    "directories": {
+      "output": "release",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "IT-Tech",
+      "artifactName": "IT-Tech-Setup-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "IT-Tech-Portable-${version}.${ext}"
+    }
+  }
+}
