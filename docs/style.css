@@ -1,0 +1,955 @@
+/* ================= IT-Tech — Liquid Glass Theme ================= */
+:root{
+  --black:#07070c; --purple:#8b5cf6; --neon:#ff7a18; --gold:#ffc84a;
+  --red:#ff3b5c; --white:#ffffff;
+  --txt:#f4f4ff; --txt-dim:#b9b9d4;
+  --glass-bg:rgba(255,255,255,.07);
+  --glass-bg2:rgba(255,255,255,.12);
+  --glass-brd:rgba(255,255,255,.18);
+  --glass-shadow:0 8px 40px rgba(0,0,0,.45);
+  --blur:26px;
+  --r:18px;
+  --accent:var(--neon);
+}
+body.light{
+  --txt:#16121f; --txt-dim:#4b4560;
+  --glass-bg:rgba(255,255,255,.55);
+  --glass-bg2:rgba(255,255,255,.72);
+  --glass-brd:rgba(255,255,255,.85);
+  --glass-shadow:0 8px 40px rgba(80,60,120,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:"Segoe UI",Inter,system-ui,sans-serif;
+  color:var(--txt); overflow:hidden; background:var(--black);
+  -webkit-user-select:none; user-select:none;
+}
+input,textarea,select,[contenteditable]{-webkit-user-select:text;user-select:text}
+
+/* ---------- Animated classroom background ---------- */
+#bg{position:fixed;inset:0;z-index:0;overflow:hidden;background:
+  radial-gradient(1200px 800px at 15% 10%, #2a1b4d 0%, transparent 60%),
+  radial-gradient(900px 700px at 85% 90%, #4a1d2e 0%, transparent 60%),
+  linear-gradient(150deg,#06060b 0%,#120a22 45%,#0a0a14 100%);}
+body.light #bg{background:
+  radial-gradient(1200px 800px at 15% 10%, #ffe6c9 0%, transparent 60%),
+  radial-gradient(900px 700px at 85% 90%, #e2d9ff 0%, transparent 60%),
+  linear-gradient(150deg,#f7f4ff 0%,#ffeede 45%,#eef1ff 100%);}
+#bg canvas{position:absolute;inset:0;width:100%;height:100%}
+.bg-blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.42;animation:float 26s ease-in-out infinite}
+.bg-blob.b1{width:520px;height:520px;background:var(--purple);left:-120px;top:-100px}
+.bg-blob.b2{width:460px;height:460px;background:var(--neon);right:-100px;top:22%;animation-delay:-7s}
+.bg-blob.b3{width:520px;height:520px;background:var(--gold);left:22%;bottom:-180px;animation-delay:-13s}
+.bg-blob.b4{width:380px;height:380px;background:var(--red);right:18%;bottom:-120px;animation-delay:-19s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(70px,-50px) scale(1.12)}66%{transform:translate(-50px,60px) scale(.92)}}
+
+/* ---------- Glass ---------- */
+.glass{
+  background:linear-gradient(135deg,var(--glass-bg2),var(--glass-bg));
+  backdrop-filter:blur(var(--blur)) saturate(180%);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(180%);
+  border:1px solid var(--glass-brd);
+  border-radius:var(--r);
+  box-shadow:var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,.35);
+  position:relative; overflow:hidden;
+}
+.glass::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.28) 0%,rgba(255,255,255,0) 38%,rgba(255,255,255,0) 62%,rgba(255,255,255,.14) 100%);}
+.glass.liquid::before{content:"";position:absolute;left:-30%;right:-30%;bottom:-60%;height:120%;
+  background:radial-gradient(60% 50% at 50% 0%, rgba(255,122,24,.30), transparent 70%);
+  animation:liquidwave 9s ease-in-out infinite;pointer-events:none}
+@keyframes liquidwave{0%,100%{transform:translateY(12%) rotate(0deg)}50%{transform:translateY(-4%) rotate(3deg)}}
+
+/* ---------- Login ---------- */
+#login{position:fixed;inset:0;z-index:50;display:grid;place-items:center;
+  background-size:cover;background-position:center}
+#login .lg-wrap{width:430px;padding:30px;animation:pop .6s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{opacity:0;transform:translateY(28px) scale(.95)}to{opacity:1;transform:none}}
+#login .logo{width:96px;height:96px;object-fit:contain;display:block;margin:0 auto 8px;filter:drop-shadow(0 6px 20px rgba(255,200,74,.5))}
+.brand-title{text-align:center;font-size:28px;font-weight:800;letter-spacing:.5px;
+  background:linear-gradient(90deg,var(--gold),var(--neon),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand-sub{text-align:center;color:var(--txt-dim);font-size:12.5px;margin-bottom:18px;letter-spacing:2px;text-transform:uppercase}
+
+label.f{display:block;font-size:11.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--txt-dim);margin:10px 0 5px}
+.inp,select.inp,textarea.inp{
+  width:100%;padding:11px 13px;border-radius:12px;color:var(--txt);font-size:14px;font-family:inherit;
+  background:rgba(255,255,255,.10);border:1px solid var(--glass-brd);outline:none;transition:.25s;
+}
+body.light .inp,body.light select.inp,body.light textarea.inp{background:rgba(255,255,255,.75)}
+.inp:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(255,122,24,.22)}
+select.inp option{background:#14101f;color:#fff}
+body.light select.inp option{background:#fff;color:#000}
+textarea.inp{min-height:78px;resize:vertical}
+
+.btn{
+  border:1px solid var(--glass-brd);background:rgba(255,255,255,.12);color:var(--txt);
+  padding:9px 15px;border-radius:12px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;
+  transition:transform .18s cubic-bezier(.2,1.6,.4,1),box-shadow .25s,background .25s;display:inline-flex;align-items:center;gap:7px;
+}
+.btn:hover{transform:translateY(-2px) scale(1.03);background:rgba(255,255,255,.2);box-shadow:0 6px 22px rgba(0,0,0,.3)}
+.btn:active{transform:scale(.95)}
+.btn.primary{background:linear-gradient(100deg,var(--neon),var(--gold));color:#1a1005;border-color:transparent;box-shadow:0 6px 24px rgba(255,122,24,.4)}
+.btn.purple{background:linear-gradient(100deg,var(--purple),#c084fc);color:#fff;border-color:transparent}
+.btn.danger{background:linear-gradient(100deg,var(--red),#ff7a90);color:#fff;border-color:transparent}
+.btn.gold{background:linear-gradient(100deg,var(--gold),#fff0b8);color:#2b1d00;border-color:transparent}
+.btn.wide{width:100%;justify-content:center;padding:12px}
+.btn.sm{padding:6px 10px;font-size:12px;border-radius:10px}
+.btn.ghost{background:transparent}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+
+/* ---------- Layout ---------- */
+#app{position:relative;z-index:1;height:100%;display:grid;grid-template-columns:262px 1fr;gap:14px;padding:14px}
+#app.collapsed{grid-template-columns:74px 1fr}
+#sidebar{padding:14px 10px;display:flex;flex-direction:column;overflow:hidden}
+.side-head{display:flex;align-items:center;gap:10px;padding:4px 6px 12px;border-bottom:1px solid var(--glass-brd);margin-bottom:8px}
+.side-head img{width:38px;height:38px;object-fit:contain}
+.side-head .t{font-weight:800;font-size:16px;letter-spacing:.4px}
+.side-head .s{font-size:10px;color:var(--txt-dim);letter-spacing:1.4px}
+#app.collapsed .side-head .txt,#app.collapsed .nav-label,#app.collapsed .group-title,#app.collapsed .user-meta{display:none}
+.nav-scroll{flex:1;overflow-y:auto;padding-right:4px}
+.nav-scroll::-webkit-scrollbar{width:6px}
+.nav-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.22);border-radius:9px}
+.group-title{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--txt-dim);margin:14px 8px 6px;opacity:.85}
+.nav-item{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:13px;cursor:pointer;
+  font-size:13.5px;color:var(--txt);transition:.22s;position:relative;overflow:hidden;margin-bottom:3px}
+.nav-item .ic{width:20px;text-align:center;font-size:15px;transition:transform .3s cubic-bezier(.2,1.6,.4,1)}
+.nav-item:hover{background:rgba(255,255,255,.13);transform:translateX(4px)}
+.nav-item:hover .ic{transform:scale(1.25) rotate(-8deg)}
+.nav-item.active{background:linear-gradient(100deg,rgba(255,122,24,.30),rgba(139,92,246,.28));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25),0 0 18px rgba(255,122,24,.28)}
+.nav-item.active::before{content:"";position:absolute;left:0;top:12%;height:76%;width:3px;border-radius:3px;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.side-foot{border-top:1px solid var(--glass-brd);padding-top:10px;display:flex;align-items:center;gap:9px}
+.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#1a1005;
+  background:linear-gradient(120deg,var(--gold),var(--neon));flex:none}
+.user-meta{flex:1;min-width:0}
+.user-meta .n{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-meta .r{font-size:10.5px;color:var(--txt-dim)}
+
+#main{display:flex;flex-direction:column;gap:12px;overflow:hidden}
+#topbar{display:flex;align-items:center;gap:10px;padding:10px 14px}
+#globalSearch{flex:1;position:relative}
+#globalSearch input{width:100%;padding:10px 14px 10px 38px;border-radius:14px;background:rgba(255,255,255,.10);
+  border:1px solid var(--glass-brd);color:var(--txt);outline:none;font-size:13.5px}
+body.light #globalSearch input{background:rgba(255,255,255,.7)}
+#globalSearch .si{position:absolute;left:13px;top:50%;transform:translateY(-50%);opacity:.7}
+#searchResults{position:absolute;top:46px;left:0;right:0;max-height:380px;overflow:auto;z-index:30;padding:6px;display:none}
+#searchResults .sr{padding:9px 11px;border-radius:11px;cursor:pointer;font-size:13px;display:flex;gap:9px;align-items:center}
+#searchResults .sr:hover{background:rgba(255,255,255,.15)}
+#searchResults .sr .tag{font-size:10px;padding:2px 7px;border-radius:20px;background:rgba(255,122,24,.3);color:var(--gold)}
+
+#content{flex:1;overflow-y:auto;padding:2px 4px 20px;scroll-behavior:smooth}
+#content::-webkit-scrollbar{width:9px}
+#content::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:10px}
+
+/* ---------- Page pieces ---------- */
+.page{animation:pageIn .45s cubic-bezier(.2,.9,.3,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.page-head{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;padding:14px 18px;margin-bottom:12px}
+.page-head h1{font-size:23px;font-weight:800;letter-spacing:.3px}
+.page-head .sub{font-size:12.5px;color:var(--txt-dim);margin-top:3px}
+.page-head .spacer{flex:1}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px 14px;margin-bottom:12px}
+.toolbar .grow{flex:1;min-width:180px}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px}
+.stat{padding:16px 18px;cursor:pointer;transition:transform .3s cubic-bezier(.2,1.5,.4,1),box-shadow .3s}
+.stat:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 16px 44px rgba(0,0,0,.42)}
+.stat .lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--txt-dim)}
+.stat .val{font-size:32px;font-weight:800;margin-top:6px;background:linear-gradient(90deg,var(--gold),var(--neon));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat .foot{font-size:11.5px;color:var(--txt-dim);margin-top:4px}
+.stat .ic{position:absolute;right:14px;top:14px;font-size:22px;opacity:.55;animation:pulse 3.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.18);opacity:.9}}
+
+.cards{display:grid;gap:12px}
+.cards.view-cards{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.cards.view-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.cards.view-list{grid-template-columns:1fr}
+.card{padding:14px;cursor:pointer;transition:transform .3s cubic-bezier(.2,1.5,.4,1),box-shadow .3s;display:flex;gap:12px;align-items:center}
+.card:hover{transform:translateY(-5px) scale(1.015);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.cards.view-grid .card{flex-direction:column;text-align:center}
+.card .pic{width:56px;height:56px;border-radius:50%;object-fit:cover;flex:none;border:2px solid var(--glass-brd);background:#241a33}
+.cards.view-grid .card .pic{width:74px;height:74px}
+.card .nm{font-weight:700;font-size:14.5px}
+.card .mt{font-size:11.5px;color:var(--txt-dim);margin-top:2px}
+.card .body{flex:1;min-width:0}
+.card.st-dropped,.card.st-suspended{border-color:rgba(255,59,92,.7);box-shadow:0 0 0 1px rgba(255,59,92,.35),0 8px 30px rgba(255,59,92,.2);background:linear-gradient(135deg,rgba(255,59,92,.20),rgba(255,59,92,.07))}
+.card.st-inactive{opacity:.62;filter:grayscale(.35)}
+
+.pill{display:inline-block;font-size:10.5px;padding:3px 9px;border-radius:20px;background:rgba(255,255,255,.16);letter-spacing:.4px}
+.pill.green{background:rgba(60,220,140,.24);color:#7dffc0}
+.pill.red{background:rgba(255,59,92,.28);color:#ffa8b8}
+.pill.gold{background:rgba(255,200,74,.26);color:var(--gold)}
+.pill.purple{background:rgba(139,92,246,.3);color:#d5c2ff}
+.pill.gray{background:rgba(160,160,190,.22);color:var(--txt-dim)}
+
+.bar{height:8px;border-radius:9px;background:rgba(255,255,255,.14);overflow:hidden;margin-top:7px}
+.bar > i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--neon),var(--gold));
+  box-shadow:0 0 12px rgba(255,150,40,.7);transition:width .9s cubic-bezier(.2,.9,.3,1)}
+
+.tabs{display:flex;gap:6px;flex-wrap:wrap;padding:8px;margin-bottom:12px}
+.tab{padding:8px 14px;border-radius:12px;cursor:pointer;font-size:13px;transition:.22s;white-space:nowrap}
+.tab:hover{background:rgba(255,255,255,.13)}
+.tab.active{background:linear-gradient(100deg,var(--purple),var(--neon));color:#fff;box-shadow:0 4px 18px rgba(139,92,246,.4)}
+
+.sect{padding:16px 18px;margin-bottom:12px}
+.sect h3{font-size:14px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.kv{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.14);font-size:13px}
+.kv b{font-weight:600;color:var(--txt-dim)}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.12)}
+th{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--txt-dim)}
+tr:hover td{background:rgba(255,255,255,.06)}
+
+/* ---------- Modal ---------- */
+#modalRoot{position:fixed;inset:0;z-index:60;display:none;align-items:center;justify-content:center;
+  background:rgba(4,2,10,.62);backdrop-filter:blur(6px);padding:24px}
+#modalRoot.on{display:flex;animation:fadeIn .25s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{width:min(940px,100%);max-height:88vh;display:flex;flex-direction:column;animation:pop .4s cubic-bezier(.2,1.4,.4,1)}
+.modal-head{display:flex;align-items:center;gap:12px;padding:15px 18px;border-bottom:1px solid var(--glass-brd)}
+.modal-head h2{font-size:17px;font-weight:800}
+.modal-body{padding:16px 18px;overflow-y:auto}
+.modal-foot{padding:13px 18px;border-top:1px solid var(--glass-brd);display:flex;gap:9px;justify-content:flex-end}
+.x{margin-left:auto;cursor:pointer;font-size:20px;opacity:.7;line-height:1}
+.x:hover{opacity:1;color:var(--red);transform:rotate(90deg);transition:.25s}
+
+/* ---------- Toast ---------- */
+#toasts{position:fixed;right:18px;bottom:18px;z-index:90;display:flex;flex-direction:column;gap:9px}
+.toast{padding:12px 16px;font-size:13px;min-width:230px;animation:slideIn .35s cubic-bezier(.2,1.4,.4,1)}
+@keyframes slideIn{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}
+
+/* ---------- Course chips ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{padding:9px 14px;border-radius:13px;font-size:12.5px;cursor:pointer;border:1px solid var(--glass-brd);
+  background:rgba(255,255,255,.10);transition:transform .22s cubic-bezier(.2,1.6,.4,1),background .2s;position:relative}
+.chip:hover{transform:translateY(-3px) scale(1.04)}
+.chip.on{background:#fff;color:#161020;font-weight:700;border-color:#fff;box-shadow:0 6px 22px rgba(255,255,255,.35)}
+.chip.on::after{content:" ✓";color:#1c8f4b;font-weight:900}
+.chip.allon{background:linear-gradient(100deg,#ffb800,#ff7a18);color:#231200;font-weight:800;border-color:transparent;box-shadow:0 6px 24px rgba(255,150,20,.5)}
+
+/* attendance marks */
+.mk{width:34px;height:32px;border-radius:9px;border:1px solid var(--glass-brd);cursor:pointer;font-weight:800;font-size:12px;
+  background:rgba(255,255,255,.10);color:var(--txt);transition:transform .2s}
+.mk:hover{transform:scale(1.14)}
+.mk.on.P{background:#111;color:#fff;border-color:#000}
+body.light .mk.on.P{background:#111;color:#fff}
+.mk.on.A{background:var(--red);color:#fff;border-color:var(--red)}
+.mk.on.L{background:#ffd93d;color:#221a00;border-color:#ffd93d}
+.mk.on.T{background:var(--neon);color:#231200;border-color:var(--neon)}
+.mk[disabled]{opacity:.3;cursor:not-allowed}
+
+.switch{width:44px;height:24px;border-radius:20px;background:rgba(255,255,255,.2);position:relative;cursor:pointer;transition:.25s;flex:none}
+.switch i{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.28s cubic-bezier(.2,1.6,.4,1)}
+.switch.on{background:linear-gradient(100deg,var(--neon),var(--gold))}
+.switch.on i{left:23px}
+.togline{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.13);font-size:13.5px}
+.togline .g{flex:1}
+
+.empty{text-align:center;padding:46px 20px;color:var(--txt-dim);font-size:14px}
+.empty .e{font-size:44px;display:block;margin-bottom:10px;animation:pulse 3s infinite}
+.shimmer{background:linear-gradient(90deg,rgba(255,255,255,.06),rgba(255,255,255,.2),rgba(255,255,255,.06));
+  background-size:200% 100%;animation:sh 1.3s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.neon{text-shadow:0 0 8px var(--neon),0 0 22px rgba(255,122,24,.6)}
+code,pre{font-family:Consolas,"Courier New",monospace}
+#codeArea{width:100%;height:56vh;background:rgba(0,0,0,.55);color:#e8e6ff;border:1px solid var(--glass-brd);
+  border-radius:12px;padding:12px;font-size:12.5px;line-height:1.55;outline:none;resize:none;white-space:pre;overflow:auto}
+body.light #codeArea{background:rgba(20,10,40,.9)}
+.filelist{max-height:56vh;overflow:auto;font-size:12.5px}
+.filelist div{padding:6px 9px;border-radius:9px;cursor:pointer}
+.filelist div:hover{background:rgba(255,255,255,.14)}
+.filelist div.sel{background:rgba(255,122,24,.3)}
+.canvas-wrap{background:#fff;border-radius:12px;overflow:auto;padding:12px;display:grid;place-items:center}
+.idcard{background:#fff;color:#111;border-radius:14px;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+
+/* ================= v1.1 OVERRIDES ================= */
+
+/* ---- 9/13/15: liquid-glass scrollbars everywhere ---- */
+*{scrollbar-width:thin;scrollbar-color:var(--neon) rgba(255,255,255,.08)}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track,::-webkit-scrollbar-corner{
+  background:rgba(255,255,255,.07);border-radius:20px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+body.light ::-webkit-scrollbar-track{background:rgba(120,90,180,.10)}
+::-webkit-scrollbar-thumb{
+  border-radius:50px;border:3px solid transparent;background-clip:padding-box;
+  background-color:var(--neon);
+  box-shadow:0 0 10px rgba(255,122,24,.85),inset 0 0 6px rgba(255,255,255,.5)}
+::-webkit-scrollbar-thumb:hover{background-color:var(--gold);box-shadow:0 0 16px var(--gold)}
+#content::-webkit-scrollbar{width:12px}
+#content::-webkit-scrollbar-thumb{background-color:var(--neon)}
+.nav-scroll::-webkit-scrollbar{width:9px}
+.nav-scroll::-webkit-scrollbar-thumb{background-color:var(--neon)}
+
+/* ---- 13/15: number & all inputs = liquid glass, never opaque white ---- */
+input.inp,select.inp,textarea.inp,input[type=number],input[type=date],input[type=text],input[type=password],input[type=email]{
+  background:rgba(255,255,255,.10)!important;
+  backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);
+  border:1px solid var(--glass-brd);color:var(--txt)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+body.light input.inp,body.light select.inp,body.light textarea.inp,
+body.light input[type=number],body.light input[type=date]{background:rgba(255,255,255,.55)!important}
+input[type=number]::-webkit-inner-spin-button{opacity:.55;filter:invert(.7)}
+input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.8);cursor:pointer}
+input[type=color]{background:transparent!important;border:1px solid var(--glass-brd);border-radius:10px;height:38px;cursor:pointer}
+
+/* ---- 5/12/16: list view = individual separate panels, real gaps ---- */
+.cards{gap:14px}
+.cards.view-list{grid-template-columns:1fr;gap:12px}
+.cards.view-list .card{
+  border-radius:var(--r);padding:14px 16px;margin:0;
+  border:1px solid var(--glass-brd);box-shadow:var(--glass-shadow),inset 0 1px 0 rgba(255,255,255,.3)}
+.cards.view-cards{grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.cards.view-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
+
+/* ---- 16: never let two panels touch ---- */
+.sect{margin-bottom:14px}
+.sect+.sect{margin-top:14px}
+.toolbar{margin-bottom:14px}
+.page-head{margin-bottom:14px}
+.tabs{margin-bottom:14px}
+.stats{gap:14px;margin-bottom:14px}
+.grid2{gap:14px}
+.grid3{gap:12px}
+.glass+.glass{margin-top:0}
+#main{gap:14px}
+.stat+.stat,.card+.card{margin:0}
+
+/* ---- 14: no blur on hover, text always crisp ---- */
+.card,.card *{filter:none!important}
+.card:hover{
+  transform:translateY(-4px);
+  backdrop-filter:blur(var(--blur)) saturate(180%);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(180%);
+  box-shadow:0 16px 44px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.3)}
+.card:hover *{opacity:1;text-shadow:none}
+.card.st-inactive{opacity:.72;filter:none!important}
+.card.st-inactive:hover{opacity:1}
+
+/* ---- 3: sidebar groups always expanded + hierarchy guide lines ---- */
+.nav-group{position:relative;padding-left:14px;margin-bottom:6px}
+.nav-group::before{content:"";position:absolute;left:5px;top:2px;bottom:6px;width:2px;border-radius:2px;
+  background:linear-gradient(180deg,var(--gold),rgba(255,122,24,.25));opacity:.55}
+.nav-group .nav-item{position:relative}
+.nav-group .nav-item::after{content:"";position:absolute;left:-9px;top:50%;width:7px;height:2px;border-radius:2px;
+  background:rgba(255,255,255,.28)}
+#app.collapsed .nav-group{padding-left:0}
+#app.collapsed .nav-group::before,#app.collapsed .nav-group .nav-item::after{display:none}
+
+/* ---- 4: user profile card above logout ---- */
+.side-foot{flex-direction:column;align-items:stretch;gap:8px;border-top:1px solid var(--glass-brd);padding-top:12px}
+.user-card{
+  display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:15px;
+  background:linear-gradient(135deg,rgba(255,200,74,.20),rgba(139,92,246,.20));
+  backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);
+  border:1px solid rgba(255,255,255,.26);
+  box-shadow:0 6px 22px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.35);position:relative;overflow:hidden}
+.user-card::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,rgba(255,255,255,.22),transparent 45%);pointer-events:none}
+.user-card .u-n{font-size:13.5px;font-weight:800;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--txt)}
+.user-card .u-r{font-size:10.5px;letter-spacing:.9px;text-transform:uppercase;margin-top:2px;
+  background:linear-gradient(90deg,var(--gold),var(--neon));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700}
+.logout-btn{width:100%;justify-content:center}
+#app.collapsed .user-card{padding:8px;justify-content:center}
+#app.collapsed .user-card .u-meta,#app.collapsed .logout-btn span{display:none}
+
+/* ---- 7: modern futuristic animated icons ---- */
+.ic-a{display:inline-block;transition:transform .35s cubic-bezier(.2,1.6,.4,1),filter .35s;
+  filter:drop-shadow(0 0 5px rgba(255,140,40,.55))}
+.nav-item:hover .ic-a{transform:scale(1.3) rotate(-10deg);filter:drop-shadow(0 0 12px var(--gold))}
+.nav-item.active .ic-a{animation:icoPulse 2.6s ease-in-out infinite;filter:drop-shadow(0 0 10px var(--neon))}
+@keyframes icoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+.ic-spin{animation:icoSpin 9s linear infinite}
+@keyframes icoSpin{to{transform:rotate(360deg)}}
+.ic-float{animation:icoFloat 3.4s ease-in-out infinite}
+@keyframes icoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.ic-glow{animation:icoGlow 2.8s ease-in-out infinite}
+@keyframes icoGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(255,140,40,.5))}50%{filter:drop-shadow(0 0 14px var(--gold))}}
+.stat .ic{animation:icoFloat 3.6s ease-in-out infinite}
+.btn:hover .ic-a{transform:scale(1.22) rotate(8deg)}
+svg.icn{width:1em;height:1em;vertical-align:-.14em;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+
+/* ---- 9: add-teacher / add-student modal grid spacing ---- */
+.modal-body .grid2{gap:16px 18px;align-items:start}
+.modal-body .grid2>div{min-width:0;margin-bottom:2px}
+.modal-body label.f{margin:0 0 6px}
+.modal-body .sect{padding:16px 18px;margin:16px 0}
+.modal-body .sect:first-child{margin-top:0}
+.modal-body .inp{margin-bottom:0}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:16px 18px;align-items:start}
+.form-grid>div{min-width:0}
+.form-grid .full{grid-column:1/-1}
+
+/* ---- 9/13: course chips contrast + stroke + animated tick ---- */
+.chip{border-width:2px;font-weight:600;color:var(--txt);
+  text-shadow:0 1px 3px rgba(0,0,0,.55);letter-spacing:.2px}
+body.light .chip{text-shadow:none}
+.chip.on{background:linear-gradient(100deg,#ff8c1a,#ffb547)!important;color:#120a00!important;
+  border-color:#ffd08a!important;font-weight:800;text-shadow:none;
+  box-shadow:0 6px 22px rgba(255,140,26,.55),inset 0 1px 0 rgba(255,255,255,.6)}
+.chip.on::after{content:" ✓";color:#0d1a0d;font-weight:900;display:inline-block;
+  animation:tickPop .35s cubic-bezier(.2,1.8,.4,1)}
+@keyframes tickPop{from{transform:scale(0) rotate(-45deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.chip.allon{background:linear-gradient(100deg,#ffb800,#ff7a18)!important;color:#1a0d00!important;
+  border-color:#ffe0a3!important;font-weight:900;box-shadow:0 6px 26px rgba(255,150,20,.6)}
+
+/* ---- 19: attendance rows as separate cards, spaced buttons ---- */
+.att-card{display:flex;align-items:center;gap:14px;padding:13px 16px;margin-bottom:12px;flex-wrap:wrap}
+.att-card .a-name{flex:1;min-width:150px}
+.att-card .a-name b{font-size:14.5px}
+.att-card .a-sub{font-size:11.5px;color:var(--txt-dim);margin-top:2px}
+.mk-row{display:flex;gap:10px;flex-wrap:wrap}
+.mk{width:40px;height:36px;border-radius:11px;border-width:2px}
+.mk+.mk{margin-left:0}
+
+/* ---- 10: animated background themes ---- */
+#bg.bg-aurora{background:linear-gradient(135deg,#050510,#101a3d 40%,#2b0a3d 100%)}
+#bg.bg-aurora .bg-blob{filter:blur(90px);opacity:.5}
+#bg.bg-nebula{background:radial-gradient(1000px 700px at 30% 20%,#3d0a5c,transparent 65%),
+  radial-gradient(900px 600px at 75% 80%,#5c1a0a,transparent 65%),#06040d}
+#bg.bg-cyber{background:linear-gradient(160deg,#04060f,#0a1a2e 45%,#1a0a2e 100%)}
+#bg.bg-sunset{background:linear-gradient(160deg,#1a0620,#4a1230 45%,#7a2a10 100%)}
+#bg.bg-matrix{background:linear-gradient(170deg,#02100a,#04220f 50%,#021208 100%)}
+#bg.bg-ocean{background:linear-gradient(160deg,#020a1a,#062a4a 45%,#0a1a3d 100%)}
+#bg.bg-classroom{background:radial-gradient(1200px 800px at 15% 10%,#2a1b4d,transparent 60%),
+  radial-gradient(900px 700px at 85% 90%,#4a1d2e,transparent 60%),linear-gradient(150deg,#06060b,#120a22 45%,#0a0a14)}
+body.light #bg.bg-aurora{background:linear-gradient(135deg,#eef2ff,#dbe6ff 40%,#f3e6ff 100%)}
+body.light #bg.bg-nebula{background:radial-gradient(1000px 700px at 30% 20%,#f0d9ff,transparent 65%),
+  radial-gradient(900px 600px at 75% 80%,#ffdfd0,transparent 65%),#faf6ff}
+body.light #bg.bg-cyber{background:linear-gradient(160deg,#eef6ff,#dceaff 45%,#eee3ff 100%)}
+body.light #bg.bg-sunset{background:linear-gradient(160deg,#fff0f5,#ffe3e8 45%,#ffe8d0 100%)}
+body.light #bg.bg-matrix{background:linear-gradient(170deg,#eefaf2,#dcf5e6 50%,#eafaf0 100%)}
+body.light #bg.bg-ocean{background:linear-gradient(160deg,#eef7ff,#d8ecff 45%,#e6f0ff 100%)}
+.bg-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.bg-tile{height:96px;border-radius:14px;cursor:pointer;position:relative;overflow:hidden;
+  border:2px solid var(--glass-brd);transition:transform .25s cubic-bezier(.2,1.6,.4,1)}
+.bg-tile:hover{transform:translateY(-4px) scale(1.03)}
+.bg-tile.sel{border-color:var(--gold);box-shadow:0 0 0 3px rgba(255,200,74,.35),0 0 24px rgba(255,200,74,.4)}
+.bg-tile span{position:absolute;left:0;right:0;bottom:0;padding:6px 8px;font-size:11.5px;font-weight:700;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.75));color:#fff}
+
+/* ---- 17/18: tabs, viewer ---- */
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;padding:8px;margin-bottom:14px}
+.viewer-stage{background:rgba(0,0,0,.5);border-radius:14px;padding:12px;display:grid;place-items:center;min-height:320px}
+.viewer-stage img,.viewer-stage video{max-width:100%;max-height:62vh;border-radius:10px}
+.viewer-stage iframe{width:100%;height:62vh;border:0;border-radius:10px;background:#fff}
+.viewer-stage pre{max-height:62vh;overflow:auto;width:100%;white-space:pre-wrap;font-size:12.5px;color:#e8e6ff;text-align:left}
+.file-row{display:flex;align-items:center;gap:12px;padding:12px 14px;margin-bottom:10px;flex-wrap:wrap}
+.file-row .f-n{flex:1;min-width:160px;font-weight:600}
+
+/* ---- 21: lab spec rows ---- */
+.spec{display:flex;justify-content:space-between;gap:10px;font-size:12px;padding:4px 0;
+  border-bottom:1px dashed rgba(255,255,255,.12)}
+.spec b{color:var(--txt-dim);font-weight:600}
+
+/* ================= v1.2 OVERRIDES ================= */
+
+/* ---- item 2: remove the moving sheen/light sweep from every glass panel ---- */
+.glass::after{display:none!important;content:none!important}
+.glass.liquid::before{display:none!important;content:none!important;animation:none!important}
+.user-card::before{display:none!important;content:none!important}
+.shimmer{animation:none!important;background:rgba(255,255,255,.10)!important}
+@keyframes liquidwave{0%,100%{transform:none}}
+@keyframes sh{to{background-position:0 0}}
+
+/* ---- item 2: neutral palette — no yellow / red / pink accents on panels ---- */
+:root{
+  --neutral-1:rgba(255,255,255,.10);
+  --neutral-2:rgba(255,255,255,.16);
+  --neutral-line:rgba(255,255,255,.22);
+  --neutral-txt:#e9e9f2;
+}
+body.light{
+  --neutral-1:rgba(255,255,255,.60);
+  --neutral-2:rgba(255,255,255,.78);
+  --neutral-line:rgba(90,80,120,.28);
+  --neutral-txt:#1b1726;
+}
+/* all status pills become neutral glass chips */
+.pill,.pill.green,.pill.red,.pill.gold,.pill.purple,.pill.gray{
+  background:var(--neutral-1)!important;color:var(--neutral-txt)!important;
+  box-shadow:inset 0 0 0 1px var(--neutral-line)!important;text-shadow:none!important}
+/* neutral progress bars */
+.bar>i{background:linear-gradient(90deg,rgba(255,255,255,.55),rgba(255,255,255,.85))!important;
+  box-shadow:none!important}
+body.light .bar>i{background:linear-gradient(90deg,rgba(60,50,90,.55),rgba(60,50,90,.8))!important}
+/* neutral stat values + section headings (were gold/orange gradients) */
+.stat .val{background:none!important;-webkit-text-fill-color:currentColor;color:var(--txt)!important}
+.sect h3{color:var(--txt)!important}
+.brand-title{background:none!important;-webkit-text-fill-color:currentColor}
+.user-card .u-r{background:none!important;-webkit-text-fill-color:currentColor;color:var(--txt-dim)!important}
+.user-card{background:var(--neutral-1)!important}
+.avatar{background:var(--neutral-2)!important;color:var(--txt)!important}
+/* neutral buttons */
+.btn.primary,.btn.purple,.btn.danger,.btn.gold{
+  background:var(--neutral-2)!important;color:var(--txt)!important;
+  border:1px solid var(--neutral-line)!important;box-shadow:none!important}
+.btn.primary:hover,.btn.purple:hover,.btn.danger:hover,.btn.gold:hover{
+  background:rgba(255,255,255,.26)!important}
+body.light .btn.primary:hover,body.light .btn.gold:hover{background:rgba(255,255,255,.92)!important}
+/* neutral tabs / nav highlight */
+.tab.active{background:var(--neutral-2)!important;color:var(--txt)!important;box-shadow:inset 0 0 0 1px var(--neutral-line)!important}
+.nav-item.active{background:var(--neutral-2)!important;box-shadow:inset 0 0 0 1px var(--neutral-line)!important}
+.nav-item.active::before{background:var(--neutral-line)!important;box-shadow:none!important}
+.nav-group::before{background:var(--neutral-line)!important;opacity:.45}
+/* neutral cards: strip coloured status washes */
+.card.st-dropped,.card.st-suspended{
+  background:linear-gradient(135deg,var(--glass-bg2),var(--glass-bg))!important;
+  border-color:var(--glass-brd)!important;box-shadow:var(--glass-shadow)!important}
+.card{border-left-color:var(--neutral-line)!important}
+/* neutral chips */
+.chip.on,.chip.allon{background:var(--neutral-2)!important;color:var(--txt)!important;
+  border-color:var(--neutral-line)!important;box-shadow:none!important;text-shadow:none!important}
+.chip.on::after{color:var(--txt)!important}
+/* neutral attendance marks */
+.mk.on.P,.mk.on.A,.mk.on.L,.mk.on.T{
+  background:var(--neutral-2)!important;color:var(--txt)!important;border-color:var(--neutral-line)!important}
+/* neutral icons + scrollbar */
+.ic-a,svg.icn{filter:none!important}
+.nav-item:hover .ic-a,.nav-item.active .ic-a{filter:none!important;animation:none!important}
+.stat .ic{animation:none!important;opacity:.45}
+::-webkit-scrollbar-thumb{background-color:rgba(255,255,255,.42)!important;box-shadow:none!important}
+::-webkit-scrollbar-thumb:hover{background-color:rgba(255,255,255,.62)!important}
+body.light ::-webkit-scrollbar-thumb{background-color:rgba(70,60,100,.45)!important}
+*{scrollbar-color:rgba(255,255,255,.42) rgba(255,255,255,.08)}
+.inp:focus{border-color:var(--neutral-line)!important;box-shadow:0 0 0 3px rgba(255,255,255,.14)!important}
+.neon{text-shadow:none!important}
+.bg-tile.sel{border-color:#fff!important;box-shadow:0 0 0 3px rgba(255,255,255,.35)!important}
+
+/* ---- item 3: sidebar icon/text spacing (Upload / Updates was cramped) ---- */
+.nav-item{gap:13px;padding:10px 12px;align-items:center}
+.nav-item svg.icn,.nav-item .ic{
+  width:19px;height:19px;min-width:19px;flex:0 0 19px;margin-right:2px;font-size:15px}
+.nav-label{
+  flex:1;min-width:0;line-height:1.35;
+  overflow-wrap:anywhere;word-break:normal;hyphens:none;padding-left:1px}
+.nav-group .nav-item::after{top:calc(50% - 1px)}
+
+/* ---- item 1: login readability ---- */
+#login::before{
+  content:"";position:absolute;inset:0;
+  backdrop-filter:blur(20px) saturate(105%);-webkit-backdrop-filter:blur(20px) saturate(105%);
+  background:rgba(255,255,255,.10);pointer-events:none}
+#login .lg-wrap{
+  position:relative;z-index:2;
+  background:rgba(255,255,255,.90)!important;
+  backdrop-filter:blur(26px) saturate(150%);-webkit-backdrop-filter:blur(26px) saturate(150%);
+  border:1px solid rgba(255,255,255,.95)!important;
+  box-shadow:0 20px 70px rgba(0,0,0,.45)!important}
+#login .lg-wrap,
+#login .brand-title,
+#login .brand-sub,
+#login label.f,
+#login .inp,
+#login .btn,
+#login #loginMsg{color:#000!important;-webkit-text-fill-color:#000!important}
+#login .brand-title{
+  background:none!important;color:#000!important;font-weight:900;letter-spacing:.4px}
+#login .brand-sub{color:#111!important;opacity:.85;font-weight:600}
+#login label.f{color:#000!important;font-weight:700;opacity:1}
+#login .inp{
+  background:rgba(255,255,255,.72)!important;
+  border:1.5px solid rgba(0,0,0,.30)!important;
+  color:#000!important;font-weight:600}
+#login .inp::placeholder{color:#000!important;-webkit-text-fill-color:#000!important;opacity:.72;font-weight:600}
+#login .inp:focus{border-color:#000!important;box-shadow:0 0 0 3px rgba(0,0,0,.14)!important}
+#login .btn{
+  background:rgba(255,255,255,.62)!important;
+  border:1.5px solid rgba(0,0,0,.32)!important;color:#000!important;font-weight:800}
+#login .btn:hover{background:rgba(255,255,255,.90)!important}
+#login .btn.primary{background:rgba(0,0,0,.86)!important;color:#fff!important;-webkit-text-fill-color:#fff!important;border-color:#000!important}
+#login .btn.primary:hover{background:#000!important}
+#login .logo{filter:none!important}
+#login svg.icn{stroke:#000!important}
+
+/* ---- item 6: custom photo / video background layers ---- */
+#bgVideo,#bgPhoto{position:absolute;inset:0;width:100%;height:100%;display:none;z-index:0}
+#bgVideo{object-fit:cover}
+#bgPhoto{background-size:cover;background-position:center;background-repeat:no-repeat}
+#bg.has-media #bgVideo.on,#bg.has-media #bgPhoto.on{display:block}
+#bg.has-media .bg-blob{display:none}
+#bg.has-media::after{content:"";position:absolute;inset:0;z-index:1;
+  background:rgba(6,4,14,var(--bg-dim,.45));backdrop-filter:blur(var(--bg-blur,0px));
+  -webkit-backdrop-filter:blur(var(--bg-blur,0px))}
+body.light #bg.has-media::after{background:rgba(255,255,255,var(--bg-dim,.35))}
+#bgCanvas{z-index:2}
+.bg-media-tile{height:96px;border-radius:14px;overflow:hidden;position:relative;cursor:pointer;
+  border:2px solid var(--glass-brd);background-size:cover;background-position:center}
+.bg-media-tile.sel{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.35)}
+.bg-media-tile span{position:absolute;left:0;right:0;bottom:0;padding:5px 7px;font-size:11px;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.8));color:#fff}
+
+/* ---- item 5: belt-and-braces — never paint admin controls for other roles ---- */
+body.role-restricted [data-customize],
+body.role-restricted #btnCustomize,
+body.role-restricted #btnBg,
+body.role-restricted .admin-only{display:none!important}
+
+/* ---- item 2: neutralise the animated blobs so no yellow/red/pink bleeds
+        through the glass panels. Background motion itself stays visible. ---- */
+.bg-blob{opacity:.20!important;filter:blur(90px)!important}
+.bg-blob.b1{background:#8890b5!important}
+.bg-blob.b2{background:#9aa0bd!important}
+.bg-blob.b3{background:#7d84a8!important}
+.bg-blob.b4{background:#8f95b8!important}
+body.light .bg-blob{opacity:.26!important}
+body.light .bg-blob.b1,body.light .bg-blob.b2,
+body.light .bg-blob.b3,body.light .bg-blob.b4{background:#b9bed6!important}
+#bg{background:linear-gradient(150deg,#0a0a10,#14141d 45%,#0d0d14)!important}
+body.light #bg{background:linear-gradient(150deg,#f2f3f8,#e9eaf2 45%,#eef0f6)!important}
+#bg.bg-classroom{background:linear-gradient(150deg,#0a0a10,#14141d 45%,#0d0d14)!important}
+body.light #bg.bg-classroom{background:linear-gradient(150deg,#f2f3f8,#e9eaf2 45%,#eef0f6)!important}
+/* custom photo/video backgrounds override the above and stay fully visible */
+#bg.has-media{background:#000!important}
+
+/* ================= v1.3 — NAVY BLUE LIGHT MODE (50% dimmer) ================= */
+/* Was near-white (#f2f3f8 ≈ 95% luminance). Now a muted navy palette at
+   roughly half that brightness, with light text for proper contrast.        */
+body.light{
+  --txt:#eaf0fb;
+  --txt-dim:#a9bad6;
+  --glass-bg:rgba(120,150,200,.13);
+  --glass-bg2:rgba(90,120,175,.10);
+  --glass-brd:rgba(150,180,225,.26);
+  --glass-shadow:0 10px 34px rgba(3,10,26,.42);
+  --neutral-1:rgba(140,170,220,.14);
+  --neutral-2:rgba(150,180,225,.22);
+  --neutral-line:rgba(160,190,230,.30);
+  --neutral-txt:#eaf0fb;
+}
+/* base navy canvas — about 50% of the old light-mode brightness */
+body.light #bg,
+body.light #bg.bg-classroom{
+  background:linear-gradient(150deg,#0f1c33,#16274a 45%,#101d36)!important}
+body.light #bg.bg-aurora {background:linear-gradient(135deg,#0d1830,#152a52 40%,#101f3d)!important}
+body.light #bg.bg-nebula {background:radial-gradient(1000px 700px at 30% 20%,#1b2e58,transparent 65%),
+                                     radial-gradient(900px 600px at 75% 80%,#16233f,transparent 65%),#0d1729!important}
+body.light #bg.bg-cyber  {background:linear-gradient(160deg,#0c1830,#12294d 45%,#0f1f3a)!important}
+body.light #bg.bg-sunset {background:linear-gradient(160deg,#101a33,#1d2a4e 45%,#243050)!important}
+body.light #bg.bg-matrix {background:linear-gradient(170deg,#0c1b2b,#123049 50%,#0e2033)!important}
+body.light #bg.bg-ocean  {background:linear-gradient(160deg,#0a1a30,#123353 45%,#0d2340)!important}
+body.light .bg-blob{opacity:.22!important}
+body.light .bg-blob.b1,body.light .bg-blob.b2,
+body.light .bg-blob.b3,body.light .bg-blob.b4{background:#4d70a8!important}
+body.light #bg.has-media::after{background:rgba(10,22,42,var(--bg-dim,.45))}
+
+/* panels + text */
+body.light .glass{box-shadow:var(--glass-shadow),inset 0 1px 0 rgba(190,215,255,.20)}
+body.light .sect h3,body.light .stat .val,body.light .card .nm,
+body.light h1,body.light h2,body.light .brand-title{color:var(--txt)!important}
+body.light .sub,body.light .mt,body.light .group-title,
+body.light .stat .lbl,body.light .foot{color:var(--txt-dim)!important}
+
+/* inputs */
+body.light .inp,
+body.light input.inp,body.light select.inp,body.light textarea.inp,
+body.light input[type=number],body.light input[type=date],
+body.light input[type=text],body.light input[type=password],body.light input[type=email]{
+  background:rgba(150,180,225,.14)!important;color:var(--txt)!important;
+  border:1px solid var(--neutral-line)!important}
+body.light .inp::placeholder{color:#93a7c6!important;opacity:1}
+body.light select.inp option{background:#16274a;color:#eaf0fb}
+body.light #globalSearch input{background:rgba(150,180,225,.14)}
+body.light input[type=date]::-webkit-calendar-picker-indicator,
+body.light input[type=number]::-webkit-inner-spin-button{filter:invert(.85)}
+
+/* controls */
+body.light .btn{color:var(--txt)}
+body.light .btn.primary,body.light .btn.gold,
+body.light .btn.purple,body.light .btn.danger{
+  background:var(--neutral-2)!important;color:var(--txt)!important}
+body.light .btn.primary:hover,body.light .btn.gold:hover,
+body.light .btn:hover{background:rgba(160,195,240,.30)!important}
+body.light .pill,body.light .pill.green,body.light .pill.red,
+body.light .pill.gold,body.light .pill.purple,body.light .pill.gray{
+  background:var(--neutral-1)!important;color:var(--neutral-txt)!important}
+body.light .bar>i{background:linear-gradient(90deg,rgba(190,215,255,.55),rgba(215,232,255,.85))!important}
+body.light .avatar{background:var(--neutral-2)!important;color:var(--txt)!important}
+body.light .mk{color:var(--txt)}
+body.light .mk.on.P,body.light .mk.on.A,body.light .mk.on.L,body.light .mk.on.T{
+  background:var(--neutral-2)!important;color:var(--txt)!important}
+body.light table th{color:var(--txt-dim)}
+body.light table td,body.light .kv b,body.light .kv span{color:var(--txt)}
+body.light .kv{border-bottom-color:rgba(160,190,230,.18)}
+body.light .spec{border-bottom-color:rgba(160,190,230,.16)}
+body.light .spec b{color:var(--txt-dim)}
+body.light .empty{color:var(--txt-dim)}
+
+/* scrollbars */
+body.light ::-webkit-scrollbar-track{background:rgba(150,180,225,.10)}
+body.light ::-webkit-scrollbar-thumb{background-color:rgba(175,205,245,.42)!important}
+body.light ::-webkit-scrollbar-thumb:hover{background-color:rgba(200,225,255,.62)!important}
+body.light *{scrollbar-color:rgba(175,205,245,.42) rgba(150,180,225,.10)}
+
+/* the login panel stays white with black text (v1.2 requirement) */
+body.light #login .lg-wrap{background:rgba(255,255,255,.90)!important}
+body.light #login .lg-wrap *{color:#000!important}
+body.light #login .btn.primary,body.light #login .btn.primary *{
+  background:rgba(0,0,0,.86)!important;color:#fff!important}
+
+/* clean up the last coloured accents in navy light mode */
+body.light .alert-title,body.light .sect-label,
+body.light [style*="var(--gold)"],body.light [style*="#ffc84a"]{color:var(--txt-dim)!important}
+body.light .card b[style],body.light span[style*="color:var(--gold)"]{color:var(--txt)!important}
+
+/* ============ v1.4 — LIGHT MODE: navy login screen, 50% dimmer ============
+   The login screen was the last bright surface: a white panel sitting on the
+   full-brightness classroom photo (measured 54.5% average brightness).
+   In LIGHT mode it now matches the navy app. DARK mode keeps the white panel
+   with black text exactly as requested in v1.2.                            */
+
+/* dim the photo behind the panel by ~50% */
+body.light #login::before{
+  background:rgba(12,26,48,.42)!important;           /* navy veil over photo */
+  backdrop-filter:blur(20px) saturate(.95) brightness(.82)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(.95) brightness(.82)!important}
+
+/* navy glass panel instead of white */
+body.light #login .lg-wrap{
+  background:linear-gradient(150deg,rgba(31,54,98,.93),rgba(23,42,78,.95))!important;
+  border:1px solid rgba(150,180,225,.30)!important;
+  box-shadow:0 22px 70px rgba(2,8,20,.62)!important}
+
+/* light text on the navy panel (overrides the v1.2 black-text rules) */
+body.light #login .lg-wrap,
+body.light #login .lg-wrap *,
+body.light #login .brand-title,
+body.light #login .brand-sub,
+body.light #login label.f,
+body.light #login #loginMsg{
+  color:#eaf0fb!important;-webkit-text-fill-color:#eaf0fb!important}
+body.light #login .brand-sub{color:#a9bad6!important;-webkit-text-fill-color:#a9bad6!important}
+body.light #login label.f{color:#c3d3ec!important;-webkit-text-fill-color:#c3d3ec!important}
+
+/* inputs */
+body.light #login .inp{
+  background:rgba(150,180,225,.14)!important;
+  border:1.5px solid rgba(160,190,230,.34)!important;
+  color:#eaf0fb!important;-webkit-text-fill-color:#eaf0fb!important}
+body.light #login .inp::placeholder{
+  color:#93a7c6!important;-webkit-text-fill-color:#93a7c6!important;opacity:1}
+body.light #login .inp:focus{
+  border-color:#9fc0ea!important;box-shadow:0 0 0 3px rgba(120,160,220,.22)!important}
+
+/* buttons */
+body.light #login .btn{
+  background:rgba(150,180,225,.18)!important;
+  border:1.5px solid rgba(160,190,230,.32)!important;
+  color:#eaf0fb!important;-webkit-text-fill-color:#eaf0fb!important}
+body.light #login .btn:hover{background:rgba(165,200,245,.28)!important}
+body.light #login .btn.primary,
+body.light #login .btn.primary *{
+  background:linear-gradient(100deg,#2f5fa6,#27508c)!important;
+  color:#ffffff!important;-webkit-text-fill-color:#ffffff!important;
+  border-color:rgba(190,215,255,.45)!important}
+body.light #login svg.icn{stroke:#eaf0fb!important}
+
+/* ============ v1.5 — LOGIN: 16px blur + true liquid-glass panel ============
+   The panel was an opaque sheet (90% white / 93% navy) so it hid the photo.
+   Now it is translucent and refracts what is behind it, so the glass really
+   "copies" the background instead of covering it.                          */
+
+/* backdrop blur reduced 20px -> 16px */
+#login::before{
+  backdrop-filter:blur(16px) saturate(105%)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(105%)!important}
+body.light #login::before{
+  backdrop-filter:blur(16px) saturate(.95) brightness(.82)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(.95) brightness(.82)!important}
+
+/* ---- the glass panel itself ---- */
+#login .lg-wrap{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:linear-gradient(150deg,
+      rgba(255,255,255,.42),
+      rgba(255,255,255,.26) 42%,
+      rgba(255,255,255,.34))!important;
+  /* the panel samples + magnifies the photo behind it = liquid glass */
+  backdrop-filter:blur(16px) saturate(190%) brightness(1.12) contrast(1.05)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(190%) brightness(1.12) contrast(1.05)!important;
+  border:1px solid rgba(255,255,255,.62)!important;
+  box-shadow:
+     0 24px 74px rgba(0,0,0,.42),
+     inset 0 1px 0 rgba(255,255,255,.92),
+     inset 0 -1px 0 rgba(255,255,255,.30),
+     inset 0 0 42px rgba(255,255,255,.20)!important}
+
+/* curved specular highlight across the top — the "liquid" sheen (static) */
+#login .lg-wrap::before{
+  content:"";position:absolute;left:-25%;right:-25%;top:-70%;height:130%;
+  background:radial-gradient(60% 50% at 50% 100%,
+      rgba(255,255,255,.55),rgba(255,255,255,.16) 45%,transparent 72%);
+  transform:rotate(-6deg);pointer-events:none;z-index:0}
+/* soft light pooling at the base, like liquid settling */
+#login .lg-wrap::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:38%;
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.20));
+  pointer-events:none;z-index:0}
+#login .lg-wrap > *{position:relative;z-index:1}
+
+/* keep DARK-mode text solid black and legible on the lighter glass */
+#login .brand-sub{color:#000!important;opacity:.9}
+#login .inp{
+  background:rgba(255,255,255,.55)!important;
+  border:1.5px solid rgba(0,0,0,.38)!important;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#login .inp::placeholder{opacity:.78}
+#login .btn{
+  background:rgba(255,255,255,.46)!important;
+  border:1.5px solid rgba(0,0,0,.34)!important;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#login .btn:hover{background:rgba(255,255,255,.72)!important}
+
+/* ---- light (navy) mode: same liquid glass, tinted navy ---- */
+body.light #login .lg-wrap{
+  background:linear-gradient(150deg,
+      rgba(46,78,136,.40),
+      rgba(26,46,86,.30) 42%,
+      rgba(34,58,104,.38))!important;
+  backdrop-filter:blur(16px) saturate(150%) brightness(.92) contrast(1.04)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(150%) brightness(.92) contrast(1.04)!important;
+  border:1px solid rgba(170,200,240,.44)!important;
+  box-shadow:
+     0 24px 74px rgba(2,8,20,.58),
+     inset 0 1px 0 rgba(200,225,255,.55),
+     inset 0 -1px 0 rgba(160,195,240,.20),
+     inset 0 0 46px rgba(120,165,225,.16)!important}
+body.light #login .lg-wrap::before{
+  background:radial-gradient(60% 50% at 50% 100%,
+      rgba(190,220,255,.34),rgba(160,200,245,.10) 45%,transparent 72%)}
+body.light #login .lg-wrap::after{
+  background:linear-gradient(180deg,transparent,rgba(150,190,240,.14))}
+body.light #login .inp{
+  background:rgba(150,180,225,.20)!important;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+body.light #login .btn{
+  background:rgba(150,180,225,.22)!important;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+
+/* ============ v1.6 — LIGHT MODE = #808080 GREY (replaces navy) ============
+   Base canvas is exactly #808080. Glass panels sit slightly lighter than it,
+   so text switches to near-black for strong contrast on mid grey.         */
+body.light{
+  --txt:#14161a;
+  --txt-dim:#3c4046;
+  --glass-bg:rgba(255,255,255,.24);
+  --glass-bg2:rgba(255,255,255,.16);
+  --glass-brd:rgba(255,255,255,.42);
+  --glass-shadow:0 10px 34px rgba(0,0,0,.30);
+  --neutral-1:rgba(255,255,255,.24);
+  --neutral-2:rgba(255,255,255,.36);
+  --neutral-line:rgba(255,255,255,.50);
+  --neutral-txt:#14161a;
+}
+/* base canvas + every preset re-tinted to #808080 */
+body.light #bg,
+body.light #bg.bg-classroom{
+  background:linear-gradient(150deg,#787878,#808080 45%,#7a7a7a)!important}
+body.light #bg.bg-aurora {background:linear-gradient(135deg,#7b7b7d,#808080 40%,#828084)!important}
+body.light #bg.bg-nebula {background:radial-gradient(1000px 700px at 30% 20%,#8a8a8a,transparent 65%),
+                                     radial-gradient(900px 600px at 75% 80%,#7a7a7a,transparent 65%),#808080!important}
+body.light #bg.bg-cyber  {background:linear-gradient(160deg,#767879,#808080 45%,#7c7e80)!important}
+body.light #bg.bg-sunset {background:linear-gradient(160deg,#828080,#808080 45%,#847e7c)!important}
+body.light #bg.bg-matrix {background:linear-gradient(170deg,#7a7f7c,#808080 50%,#7c807e)!important}
+body.light #bg.bg-ocean  {background:linear-gradient(160deg,#787c80,#808080 45%,#7c7e82)!important}
+body.light .bg-blob{opacity:.16!important}
+body.light .bg-blob.b1,body.light .bg-blob.b2,
+body.light .bg-blob.b3,body.light .bg-blob.b4{background:#d0d0d0!important}
+body.light #bg.has-media::after{background:rgba(128,128,128,var(--bg-dim,.42))}
+
+/* dark text everywhere (overrides the old navy light-text rules) */
+body.light,
+body.light .sect h3,body.light .stat .val,body.light .card .nm,
+body.light h1,body.light h2,body.light .brand-title,
+body.light table td,body.light .kv b,body.light .kv span,
+body.light .btn,body.light .tab,body.light .nav-item{color:var(--txt)!important}
+body.light .sub,body.light .mt,body.light .group-title,
+body.light .stat .lbl,body.light .foot,body.light table th,
+body.light .spec b,body.light .empty{color:var(--txt-dim)!important}
+body.light .glass{box-shadow:var(--glass-shadow),inset 0 1px 0 rgba(255,255,255,.55)}
+
+/* inputs + controls on grey */
+body.light .inp,
+body.light input.inp,body.light select.inp,body.light textarea.inp,
+body.light input[type=number],body.light input[type=date],
+body.light input[type=text],body.light input[type=password],body.light input[type=email]{
+  background:rgba(255,255,255,.40)!important;color:var(--txt)!important;
+  border:1px solid rgba(255,255,255,.55)!important}
+body.light .inp::placeholder{color:#4a4e54!important;opacity:1}
+body.light select.inp option{background:#8a8a8a;color:#14161a}
+body.light #globalSearch input{background:rgba(255,255,255,.40)}
+body.light input[type=date]::-webkit-calendar-picker-indicator,
+body.light input[type=number]::-webkit-inner-spin-button{filter:invert(0)}
+body.light .btn.primary,body.light .btn.gold,
+body.light .btn.purple,body.light .btn.danger{
+  background:rgba(255,255,255,.42)!important;color:var(--txt)!important}
+body.light .btn:hover,body.light .btn.primary:hover,body.light .btn.gold:hover{
+  background:rgba(255,255,255,.62)!important}
+body.light .pill,body.light .pill.green,body.light .pill.red,
+body.light .pill.gold,body.light .pill.purple,body.light .pill.gray{
+  background:rgba(255,255,255,.28)!important;color:var(--txt)!important}
+body.light .bar>i{background:linear-gradient(90deg,rgba(40,42,46,.55),rgba(20,22,26,.80))!important}
+body.light .avatar{background:rgba(255,255,255,.42)!important;color:var(--txt)!important}
+body.light .mk,body.light .mk.on.P,body.light .mk.on.A,
+body.light .mk.on.L,body.light .mk.on.T{
+  background:rgba(255,255,255,.36)!important;color:var(--txt)!important}
+body.light .kv{border-bottom-color:rgba(255,255,255,.30)}
+body.light .spec{border-bottom-color:rgba(255,255,255,.26)}
+body.light ::-webkit-scrollbar-track{background:rgba(255,255,255,.18)}
+body.light ::-webkit-scrollbar-thumb{background-color:rgba(255,255,255,.62)!important}
+body.light ::-webkit-scrollbar-thumb:hover{background-color:rgba(255,255,255,.85)!important}
+body.light *{scrollbar-color:rgba(255,255,255,.62) rgba(255,255,255,.18)}
+
+/* login: grey liquid glass, dark text (keeps the v1.5 refraction) */
+body.light #login::before{
+  background:rgba(128,128,128,.34)!important;
+  backdrop-filter:blur(16px) saturate(.95) brightness(.92)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(.95) brightness(.92)!important}
+body.light #login .lg-wrap{
+  background:linear-gradient(150deg,
+      rgba(255,255,255,.34),rgba(200,200,200,.24) 42%,rgba(230,230,230,.30))!important;
+  backdrop-filter:blur(16px) saturate(150%) brightness(1.02) contrast(1.04)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(150%) brightness(1.02) contrast(1.04)!important;
+  border:1px solid rgba(255,255,255,.60)!important;
+  box-shadow:0 24px 74px rgba(0,0,0,.38),
+             inset 0 1px 0 rgba(255,255,255,.85),
+             inset 0 0 44px rgba(255,255,255,.18)!important}
+body.light #login .lg-wrap::before{
+  background:radial-gradient(60% 50% at 50% 100%,
+      rgba(255,255,255,.48),rgba(255,255,255,.14) 45%,transparent 72%)}
+body.light #login .lg-wrap::after{
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.18))}
+body.light #login .lg-wrap,
+body.light #login .lg-wrap *,
+body.light #login .brand-title,
+body.light #login label.f,
+body.light #login #loginMsg{color:#000!important;-webkit-text-fill-color:#000!important}
+body.light #login .brand-sub{color:#111!important;-webkit-text-fill-color:#111!important;opacity:.9}
+body.light #login .inp{
+  background:rgba(255,255,255,.48)!important;
+  border:1.5px solid rgba(0,0,0,.34)!important;
+  color:#000!important;-webkit-text-fill-color:#000!important}
+body.light #login .inp::placeholder{color:#000!important;-webkit-text-fill-color:#000!important;opacity:.7}
+body.light #login .btn{
+  background:rgba(255,255,255,.44)!important;
+  border:1.5px solid rgba(0,0,0,.30)!important;
+  color:#000!important;-webkit-text-fill-color:#000!important}
+body.light #login .btn:hover{background:rgba(255,255,255,.70)!important}
+body.light #login .btn.primary,body.light #login .btn.primary *{
+  background:rgba(0,0,0,.84)!important;color:#fff!important;
+  -webkit-text-fill-color:#fff!important;border-color:rgba(0,0,0,.7)!important}
+body.light #login svg.icn{stroke:#000!important}
+
+/* keep the canvas locked to a true #808080 — blobs were lifting it to ~151 */
+body.light .bg-blob{display:none!important}
+body.light #bg,body.light #bg.bg-classroom{background:#808080!important}
+body.light #bg.bg-aurora,body.light #bg.bg-nebula,body.light #bg.bg-cyber,
+body.light #bg.bg-sunset,body.light #bg.bg-matrix,body.light #bg.bg-ocean{
+  background:#808080!important}
+body.light #bgCanvas{opacity:.35}
